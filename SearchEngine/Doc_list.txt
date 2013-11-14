@@ -1,0 +1,6 @@
+0;.\crawl\HomePage.html
+1;.\crawl\台北人與金門人.htm
+2;.\crawl\如何在金門地區購買房地產.htm
+3;.\crawl\我在資訊管理上的失敗經驗.htm
+4;.\crawl\我該學哪種程式語言呢.htm
+5;.\crawl\金門與台北的閩南語.htm

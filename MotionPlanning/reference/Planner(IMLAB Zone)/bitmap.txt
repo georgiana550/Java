@@ -1,0 +1,51 @@
+ 作者  yug (完美的屍體...哈哈)                              看板  Lab_IM
+ 標題  填bitmap
+ 時間  Thu Nov  7 13:30:48 2002
+───────────────────────────────────────
+                                                                                
+                                                                                
+1.首先要找出障礙物邊緣上的點
+  這部分用內插的方式產生
+                                                                                
+  #若障礙物包含多個凸多邊形
+   則每個凸多邊形要各自處理一次
+                                                                                
+  <ex>
+  V1=(x1,y1)=(49,20)
+  V2=(x2,y2)=(32,12) 為障礙物的頂點
+                                                                                
+  在V1 V2之間的點求法如下
+                                                                                
+  dx=(x1-x2)=(49-32)=17
+  dy=(y1-y2)=(20-12)=8
+                                                                                
+  base=max(dx,dy)=17
+  base一定要用大的,不然會漏填(dx/base>1 or dy/base>1)
+                                                                                
+   for(i=1;i<base;i++)
+  {
+   interX=x1+(dx/base)*i;
+   interY=y1+(dy/base)*i;
+   這就是內插的點
+  }
+                                                                                
+2.填的時候要用到Xmax,Xmin,Ymax[],Ymin[]
+  initial:
+    Xmax=0 Xmin=128
+    Ymax[]=0 , Ymin[]=128
+                                                                                
+  當每檢查一個點(障礙物邊上的點)時
+  要更新這四個值
+                                                                                
+  <ex>
+  x1=49 y1=32 => Xmin=49;Xmax=49;Ymin[49]=32;Ymax[49]=32;
+  x2=50 y1=32 => Xmin=49;Xmax=50;Ymin[50]=32;Ymax[50]=32;
+  x3=50 y3=33 => Xmin=49;Xmax=50;Ymin[50]=32;Ymax[50]=33;
+  ......
+                                                                                
+  當障礙物邊緣上的點都跑過一遍後
+  for(i=Xmin;i<Xmax+1;i++)
+  {
+    將bitmap上Ymin[i] ~ Ymax[i]之間的範圍設為forbidden
+  }
+                                                                         
